@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33027.164
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shellraiser", "Shellraiser.csproj", "{8B81907F-CBC7-405C-99E0-800A9D02C8EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B81907F-CBC7-405C-99E0-800A9D02C8EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B81907F-CBC7-405C-99E0-800A9D02C8EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B81907F-CBC7-405C-99E0-800A9D02C8EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B81907F-CBC7-405C-99E0-800A9D02C8EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {70435D6A-9E79-4846-82DA-C859EEDADD0C}
+	EndGlobalSection
+EndGlobal
