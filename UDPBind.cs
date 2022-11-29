@@ -5,13 +5,13 @@ using System.Text;
 using System.Diagnostics;
 using System.Linq;
 
-namespace ch4_udp_server
+namespace Shellraiser
 {
-	class MainClass
+	public class MainClass
 	{
-		public static void Main(string[] args)
+		public static void UDP(string IPAddress, int Port)
 		{
-			int lport = int.Parse(args[0]);
+			int lport = Port;
 			using (UdpClient listener = new UdpClient(lport))
 			{
 				IPEndPoint localEP = new IPEndPoint(IPAddress.Any, lport);
