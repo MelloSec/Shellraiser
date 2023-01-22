@@ -10,33 +10,49 @@ namespace Shellraiser
     {
         public static void Main(string[] args)
         {
-            var IPAddress = string.Empty;
-            var int? Port = 0;
-            for (var x = 0; x < args.Count(); x++)
+            if (args.Length != 3)
             {
-                switch (args[x].Trim().ToUpper())
-                {
-                    // We need to get this so that we can put the IP and the Port numbers. Look ath the TCP client and see how we're parsing IP addresses there
-                      
-                    case "/I":
-                        IPAddress = args[x + 1];
-                        break;
-                    case "/P":
-                        Port = args[x + 1];
-                        break;
-                    case "/R":
-                        // Start connect back method TCPReverse using IPAddress and Port
-                        TCPReverse reverse = new(IPAddress, Port);
-                        break;
-                        /*                    case "/B":
-                                                // Start TCPBind method and listen on given IPAddress and Port
-                                                TCPBind bind = new(IPAddress, Port);
-                                                break;*/
-                }
+                Console.WriteLine("Invalid number of arguments. Usage: ShellRunner -b|-u|-r IP_ADDRESS PORT");
+                return;
             }
+
+            string option = args[0];
+            string ipAddress = args[1];
+            int port = int.Parse(args[2]);
+
+            if (option == "-b")
+            {
+                // call the TCPBind function with the provided IP address and port
+                TCPBind(ipAddress, port);
+            }
+            else if (option == "-u")
+            {
+                // call the UDPBind function with the provided IP address and port
+                UDPBind(ipAddress, port);
+            }
+            else if (option == "-r")
+            {
+                // call the Reverse function with the provided IP address and port
+                Reverse(ipAddress, port);
+            }
+            else
+            {
+                Console.WriteLine("Invalid option. Usage: ShellRunner -b|-u|-r IP_ADDRESS PORT");
+                return;
+            }
+
+            static void TCPBind(string ipAddress, int port)
+            {
+                // your existing TCPBind code here, using the provided IP address and port
+            }
+
         }
+
+
+        //
+    } 
     }
-}
+
 
 
 

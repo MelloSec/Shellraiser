@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -84,7 +84,7 @@ namespace Shellraiser
 
 
 
-	/*    public class Socks4Proxy
+	*//*    public class Socks4Proxy
 		{
 			private readonly int _bindPort;
 			private readonly IPAddress _bindAddress;
@@ -128,8 +128,9 @@ namespace Shellraiser
 				_tokenSource.Cancel();
 			}
 		}
-	*/
+	*//*
 
 
 
 }
+*/
