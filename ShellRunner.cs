@@ -42,7 +42,12 @@ namespace Shellraiser
             {
                 // UDP Client
                 UDPClient(ipAddress, port);
-            }    // 
+            }    //
+            else if (option == "-t")
+            {
+                // UDP Client
+                TestConnect(ipAddress, port);
+            }    //
             else
             {
                 Console.WriteLine("Invalid option. Usage: ");
@@ -58,7 +63,8 @@ namespace Shellraiser
             Console.WriteLine("-r: TCP Reverse");
             Console.WriteLine("-u: UDP Bind");
             Console.WriteLine("-c: UDP Client");
-            
+            Console.WriteLine("-t: Test Connection");
+
         }
 
         private static void TCPBind(string ipAddress, int port)
@@ -286,6 +292,34 @@ namespace Shellraiser
             udpListener.Close();
         }
 
+        private static void TestConnect(string ipAddress, int port)
+        {
+            TcpClient tcpClient = new TcpClient();
+            UdpClient udpClient = new UdpClient();
+            try
+            {
+                tcpClient.Connect(ipAddress, port);
+                Console.WriteLine("TCP connection to {0}:{1} succeeded", ipAddress, port);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("TCP connection to {0}:{1} failed: {2}", ipAddress, port, e.Message);
+            }
+            try
+            {
+                udpClient.Connect(ipAddress, port);
+                Console.WriteLine("UDP connection to {0}:{1} succeeded", ipAddress, port);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("UDP connection to {0}:{1} failed: {2}", ipAddress, port, e.Message);
+            }
+            finally
+            {
+                tcpClient.Close();
+                udpClient.Close();
+            }
+        }
 
         //
     }
