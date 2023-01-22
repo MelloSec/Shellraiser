@@ -40,9 +40,18 @@ namespace Shellraiser
             }
             else
             {
-                Console.WriteLine("Invalid option. Usage: ShellRunner -b|-u|-r IP_ADDRESS PORT");
+                Console.WriteLine("Invalid option. Usage: ");
+                ShowHelp();
                 return;
             }
+        }
+        private static void ShowHelp()
+        {
+            Console.WriteLine("Usage: ShellRunner OPTION IP_ADDRESS PORT");
+            Console.WriteLine("OPTIONS:");
+            Console.WriteLine("-b: TCP Bind");
+            Console.WriteLine("-u: UDP Bind");
+            Console.WriteLine("-r: Reverse");
         }
 
         private static void TCPBind(string ipAddress, int port)
