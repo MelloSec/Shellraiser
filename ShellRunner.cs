@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Shellraiser.Modules;
 
 namespace Shellraiser
 {
@@ -30,35 +31,58 @@ namespace Shellraiser
             {
                 argArray = args[3].Split(' ');
             }
+
             if (option == "-b")
             {
                 TCPBind(ipAddress, port);
             }
+
             else if (option == "-u")
             {
                 UDPBind(ipAddress, port);
             }
+
             else if (option == "-r")
             {
                 Reverse(ipAddress, port);
             }
+
             else if (option == "-c")
             {
                 UDPClient(ipAddress, port);
             }
+
             else if (option == "-t")
             {
                 TestConnect(ipAddress, port);
             }
+
             else if (option == "-h")
             {
                 ShowHelp();
                 return;
             }
+
             else if (option == "-g")
             {
                 BannerGrab(ipAddress, port);
             }
+
+            /*            else if (option == "-socks")
+                        {
+                            IPAddress bindAddress = IPAddress.Parse(ipAddress);
+                            Socks4Proxy proxy = new Socks4Proxy(bindAddress, port);
+                            proxy.Start();
+                        }*/
+            else if (option == "-socks")
+            {
+                Socks4Proxy proxy = new Socks4Proxy();
+                proxy.Start();
+                Console.WriteLine("Socks4 Proxy running. Check Port:");
+                Console.WriteLine(port);
+
+            }
+
             else
             {
                 Console.WriteLine("Invalid option. Usage: ");
