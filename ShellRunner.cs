@@ -8,6 +8,9 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
+
+// Core implant repo, should be locked when we get it where we want it
+
 namespace Shellraiser
 {
     class ShellRunner
