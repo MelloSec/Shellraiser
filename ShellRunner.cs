@@ -45,9 +45,16 @@ namespace Shellraiser
             }    //
             else if (option == "-t")
             {
-                // UDP Client
+                // Test TCP and UDP port
                 TestConnect(ipAddress, port);
-            }    //
+            }
+            else if (option == "-g")
+            {
+                string[] ports = args[2].Split(',');
+                int[] portArr = Array.ConvertAll(ports, int.Parse);
+                BannerGrabber grabber = new BannerGrabber();
+                grabber.GrabBanner(ipAddress, portArr);
+            }
             else
             {
                 Console.WriteLine("Invalid option. Usage: ");
