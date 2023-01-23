@@ -14,15 +14,22 @@ namespace Shellraiser
     {
         public static void Main(string[] args)
         {
-            if (args.Length != 3)
+            if (args.Length < 3 || args.Length > 4)
             {
-                Console.WriteLine("Invalid number of arguments. Usage: ShellRunner OPTION IP_ADDRESS PORT");
+                Console.WriteLine("Invalid number of arguments. Usage: ShellRaiser OPTION IP_ADDRESS PORT [OPTIONAL_ARGS]");
+                ShowHelp();
                 return;
             }
 
             string option = args[0];
             string ipAddress = args[1];
             int port = int.Parse(args[2]);
+            string[] argArray = null;
+
+            if (args.Length == 4)
+            {
+                argArray = args[3].Split(' ');
+            }
 
             if (option == "-b")
             {
@@ -30,24 +37,25 @@ namespace Shellraiser
             }
             else if (option == "-u")
             {
-                // call the UDPBind function with the provided IP address and port
                 UDPBind(ipAddress, port);
             }
             else if (option == "-r")
             {
-                // call the Reverse function with the provided IP address and port
                 Reverse(ipAddress, port);
             }
             else if (option == "-c")
             {
-                // UDP Client
                 UDPClient(ipAddress, port);
-            }    //
+            }
             else if (option == "-t")
             {
-                // UDP Client
                 TestConnect(ipAddress, port);
-            }    //
+            }
+            else if (option == "-h")
+            {
+                ShowHelp();
+                return;
+            }
             else
             {
                 Console.WriteLine("Invalid option. Usage: ");
@@ -55,6 +63,8 @@ namespace Shellraiser
                 return;
             }
         }
+
+
         private static void ShowHelp()
         {
             Console.WriteLine("Usage: ShellRunner OPTION IP_ADDRESS PORT");
@@ -64,6 +74,8 @@ namespace Shellraiser
             Console.WriteLine("-u: UDP Bind");
             Console.WriteLine("-c: UDP Client");
             Console.WriteLine("-t: Test Connection");
+            Console.WriteLine("-h: Get Help");
+            Console.WriteLine("-hh: Get Help with Hellraiser IV: Bloodlines");
 
         }
 
@@ -292,7 +304,7 @@ namespace Shellraiser
             udpListener.Close();
         }
 
-        private static void TestConnect(string ipAddress, int port)
+        public static void TestConnect(string ipAddress, int port)
         {
             TcpClient tcpClient = new TcpClient();
             UdpClient udpClient = new UdpClient();
