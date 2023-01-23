@@ -30,7 +30,6 @@ namespace Shellraiser
             {
                 argArray = args[3].Split(' ');
             }
-
             if (option == "-b")
             {
                 TCPBind(ipAddress, port);
@@ -55,6 +54,10 @@ namespace Shellraiser
             {
                 ShowHelp();
                 return;
+            }
+            else if (option == "-g")
+            {
+                BannerGrab(ipAddress, port);
             }
             else
             {
@@ -330,6 +333,25 @@ namespace Shellraiser
             {
                 tcpClient.Close();
                 udpClient.Close();
+            }
+        }
+
+        private static void BannerGrab(string ipAddress, int port)
+        {
+            try
+            {
+                TcpClient client = new TcpClient(ipAddress, port);
+                Console.WriteLine("Connected to " + ipAddress + ":" + port);
+                NetworkStream stream = client.GetStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                string banner = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                Console.WriteLine("Banner: " + banner);
+                client.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
             }
         }
 
