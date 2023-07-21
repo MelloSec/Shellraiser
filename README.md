@@ -2,8 +2,6 @@
 
 A simple set of shells, meant to be modular. Switch branches to different modules like AD and recompile.
 
-# CoreV1
-
 ## TCP Bind
 
 ![image](https://user-images.githubusercontent.com/65114647/214705189-0c44428d-8acc-4c55-992f-772379b9e274.png)
@@ -22,12 +20,10 @@ In progress
 
 In Progress
 
-# Core V2
-
 ## Test-Connection
 
 ![image](https://user-images.githubusercontent.com/65114647/214706608-421be570-9fe1-487f-acba-cff008a8d30b.png)
 
 ## Banner-Grab
 
-# Core v3
+
