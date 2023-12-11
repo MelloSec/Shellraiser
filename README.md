@@ -1,8 +1,7 @@
 # Shellraiser
 
-A simple set of shells, meant to be modular. Switch branches to different modules like AD and recompile.
+A simple set of shells
 
-# CoreV1
 
 ## TCP Bind
 
